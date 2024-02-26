@@ -1,5 +1,4 @@
 package com.epf.rentmanager.servlet;
-
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
@@ -13,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/cars")
-public class VehicleListServlet extends HttpServlet {
+@WebServlet("/cars/create")
+public class VehicleCreateServlet extends HttpServlet {
 
     /**
      *
@@ -24,14 +23,16 @@ public class VehicleListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
-            List<Vehicle> L1 = new ArrayList<>();
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try{
             VehicleService vehicleService = VehicleService.getInstance();
-            L1 = vehicleService.findAll();
-            request.setAttribute("vehicles",L1);
+            vehicleService.create(new Vehicle(1,request.getParameter("manufacturer"),request.getParameter("modele"),Integer.parseInt(request.getParameter("seats"))));
         }catch (ServiceException e){
             throw new ServletException();
         }
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
+        response.sendRedirect("/rentmanager/cars");
     }
 }

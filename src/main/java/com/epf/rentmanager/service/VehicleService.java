@@ -51,7 +51,7 @@ public class VehicleService {
 		try{
 			return vehicleDao.findAll();
 		}catch(DaoException e){
-			throw new ServiceException("Erreur trouver clients");
+			throw new ServiceException("Erreur trouver véhicules");
 		}
 	}
 }
