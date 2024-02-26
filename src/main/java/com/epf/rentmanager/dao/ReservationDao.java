@@ -1,15 +1,13 @@
 package com.epf.rentmanager.dao;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
+
+import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.persistence.ConnectionManager;
 
 public class ReservationDao {
@@ -30,23 +28,108 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 		
 	public long create(Reservation reservation) throws DaoException {
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement ps =
+					connection.prepareStatement( CREATE_RESERVATION_QUERY
+							, Statement.RETURN_GENERATED_KEYS);
+
+			ps.setLong(1, reservation.getClient_id());
+			ps.setLong(2, reservation.getVehicle_id());
+			ps.setDate(3, Date.valueOf(reservation.getDebut()));
+			ps.setDate(4,Date.valueOf(reservation.getFin()));
+			ps.execute();
+			ResultSet resultSet = ps.getGeneratedKeys();
+			ps.close();
+			connection.close();
+			if (resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
 		return 0;
 	}
 	
 	public long delete(Reservation reservation) throws DaoException {
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement ps =
+					connection.prepareStatement(DELETE_RESERVATION_QUERY
+							,Statement.RETURN_GENERATED_KEYS);
+
+			ps.setLong(1, reservation.getId());
+			ps.execute();
+			ResultSet resultSet = ps.getGeneratedKeys();
+			ps.close();
+			connection.close();
+			if (resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
 		return 0;
 	}
-
-	
 	public List<Reservation> findResaByClientId(long clientId) throws DaoException {
-		return new ArrayList<Reservation>();
+		try (
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement ps =
+					connection.prepareStatement(FIND_RESERVATIONS_BY_CLIENT_QUERY
+							,Statement.RETURN_GENERATED_KEYS);
+
+			ResultSet resultSet = ps.getGeneratedKeys();){
+			ps.setLong(1, clientId);
+
+			ps.execute();
+			List<Reservation> L1= new ArrayList<Reservation>();
+			do {
+				L1.add(new Reservation(resultSet.getLong(1),clientId,resultSet.getLong(2),resultSet.getDate(3).toLocalDate(),resultSet.getDate(4).toLocalDate()));
+			} while(resultSet.next());
+			return L1;
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
 	}
 	
 	public List<Reservation> findResaByVehicleId(long vehicleId) throws DaoException {
-		return new ArrayList<Reservation>();
+		try (
+				Connection connection = ConnectionManager.getConnection();
+				PreparedStatement ps =
+						connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY
+								,Statement.RETURN_GENERATED_KEYS);
+
+				ResultSet resultSet = ps.getGeneratedKeys();){
+			ps.setLong(1, vehicleId);
+
+			ps.execute();
+			List<Reservation> L1= new ArrayList<Reservation>();
+			do {
+				L1.add(new Reservation(resultSet.getLong(1),resultSet.getLong(2),vehicleId,resultSet.getDate(4).toLocalDate(),resultSet.getDate(5).toLocalDate()));
+			} while(resultSet.next());
+			return L1;
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
 	}
 
 	public List<Reservation> findAll() throws DaoException {
-		return new ArrayList<Reservation>();
+		try (
+				Connection connection = ConnectionManager.getConnection();
+				PreparedStatement ps =
+						connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY
+								,Statement.RETURN_GENERATED_KEYS);
+
+				ResultSet resultSet = ps.getGeneratedKeys();){
+
+			ps.execute();
+			List<Reservation> L1= new ArrayList<Reservation>();
+			do {
+				L1.add(new Reservation(resultSet.getLong(1),resultSet.getLong(2),resultSet.getLong(3),resultSet.getDate(4).toLocalDate(),resultSet.getDate(5).toLocalDate()));
+			} while(resultSet.next());
+			return L1;
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
 	}
 }
