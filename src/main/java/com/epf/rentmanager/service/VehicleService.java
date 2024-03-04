@@ -47,6 +47,21 @@ public class VehicleService {
 		}
 	}
 
+	public long delete(Vehicle vehicle) throws ServiceException {
+		try{
+			return vehicleDao.delete(vehicle);
+		}catch(DaoException e){
+			throw new ServiceException("Erreur trouver véhicules");
+		}
+	}
+	public int count() throws ServiceException {
+		try{
+			return vehicleDao.countAll();
+		}catch(DaoException e){
+			throw new ServiceException("Erreur trouver véhicules");
+		}
+	}
+
 	public List<Vehicle> findAll() throws ServiceException {
 		try{
 			return vehicleDao.findAll();

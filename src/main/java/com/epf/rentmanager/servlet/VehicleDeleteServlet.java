@@ -1,4 +1,5 @@
 package com.epf.rentmanager.servlet;
+
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
@@ -12,28 +13,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/cars/create")
-public class VehicleCreateServlet extends HttpServlet {
+@WebServlet("/cars/delete")
+public class VehicleDeleteServlet extends HttpServlet {
 
+    /**
+     *
+     */
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
-    }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try{
+        try {
             VehicleService vehicleService = VehicleService.getInstance();
-            String manu = request.getParameter("manufacturer");
-            String mod = request.getParameter("modele");
-            int seat = Integer.parseInt(request.getParameter("seats"));
-            Vehicle V1 = new Vehicle(1,manu, mod, seat);
-            long l = vehicleService.create(V1);
+            Long id = Long.parseLong(request.getParameter("id"));
+            long l = vehicleService.delete(new Vehicle(id, "", "",0));
             response.sendRedirect("/rentmanager/cars");
         }catch (ServiceException e){
             throw new ServletException();
         }
-    }
+        }
 }

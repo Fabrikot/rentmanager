@@ -1,8 +1,8 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Vehicle;
-import com.epf.rentmanager.service.VehicleService;
+import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.service.ReservationService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/cars")
-public class VehicleListServlet extends HttpServlet {
+@WebServlet("/rents")
+public class ReservationListServlet extends HttpServlet {
 
     /**
      *
@@ -25,14 +25,13 @@ public class VehicleListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            List<Vehicle> L1 = new ArrayList<>();
-            VehicleService vehicleService = VehicleService.getInstance();
-            L1 = vehicleService.findAll();
-            request.setAttribute("vehicles",L1);
+            List<Reservation> L1 = new ArrayList<>();
+            ReservationService reservationService = ReservationService.getInstance();
+            L1 = reservationService.findAll();
+            request.setAttribute("rents",L1);
         }catch (ServiceException e){
             throw new ServletException();
         }
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
     }
-
 }

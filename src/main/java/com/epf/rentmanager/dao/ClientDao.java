@@ -98,14 +98,14 @@ public class ClientDao {
 			PreparedStatement ps =
 					connection.prepareStatement(FIND_CLIENTS_QUERY
 							,Statement.RETURN_GENERATED_KEYS);
+			ResultSet resultSet = ps.executeQuery();
 			){
-			ps.executeQuery();
-			ResultSet resultSet = ps.getGeneratedKeys();
+
 			List<Client> L1= new ArrayList<Client>();
-			do {
-				System.out.println(L1);
-				L1.add(new Client(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getDate(5).toLocalDate()));
-			} while(resultSet.next());
+			while(resultSet.next()){
+				Client C1 = new Client(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getDate(5).toLocalDate());
+				L1.add(C1);
+			}
 			return L1;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
