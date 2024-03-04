@@ -59,7 +59,7 @@ public class Client {
         this.naissance = naissance;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

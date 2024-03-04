@@ -40,7 +40,9 @@ public class ReservationDao {
 			ps.executeUpdate();
 			ResultSet resultSet = ps.getGeneratedKeys();
 			if (resultSet.next()) {
-				return resultSet.getLong(1);
+				long id = resultSet.getLong(1);
+				reservation.setId(id);
+				return reservation.getId();
 			}
 		} catch (SQLException e) {
 			throw new DaoException();

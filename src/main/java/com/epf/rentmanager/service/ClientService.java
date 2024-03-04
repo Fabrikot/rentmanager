@@ -50,6 +50,13 @@ public class ClientService {
 		}
 	}
 
+	public long delete(Client client) throws ServiceException {
+		try{
+			return clientDao.delete(client);
+		}catch(DaoException e){
+			throw new ServiceException("Erreur trouver clients"+e.getMessage());
+		}
+	}
 	public List<Client> findAll() throws ServiceException {
 		try{
 			return clientDao.findAll();

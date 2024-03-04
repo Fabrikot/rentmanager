@@ -44,7 +44,9 @@ public class ClientDao {
 			ps.executeUpdate();
 			ResultSet resultSet = ps.getGeneratedKeys();
 			if (resultSet.next()) {
-				return resultSet.getLong(1);
+				long id = resultSet.getLong(1);
+				client.setId(id);
+				return client.getId();
 			}
 		} catch (SQLException e) {
 			throw new DaoException("PB de DAO"+e.getMessage());
@@ -100,7 +102,6 @@ public class ClientDao {
 							,Statement.RETURN_GENERATED_KEYS);
 			ResultSet resultSet = ps.executeQuery();
 			){
-
 			List<Client> L1= new ArrayList<Client>();
 			while(resultSet.next()){
 				Client C1 = new Client(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getDate(5).toLocalDate());
