@@ -82,11 +82,9 @@ public class ClientDao {
 							,Statement.RETURN_GENERATED_KEYS);
 			){
 			ps.setLong(1, id);
-			ps.execute();
-			ResultSet resultSet = ps.getGeneratedKeys();
-
+			ResultSet resultSet = ps.executeQuery();
 			if (resultSet.next()) {
-				return new Client(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getDate(5).toLocalDate());
+				return new Client(id,resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getDate(4).toLocalDate());
 			}
 		} catch (SQLException e) {
 			throw new DaoException();

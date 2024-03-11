@@ -32,8 +32,9 @@
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="car" name="car">
-                                            <option value="1">Renault Clio</option>
-                                            <option value="2">Citroen C2</option>
+                                            <c:forEach items="${cars}" var="car">
+                                                <option value=${car.id}>${car.constructeur} ${car.modele}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -42,8 +43,9 @@
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="client" name="client">
-                                            <option value="1">John Doe</option>
-                                            <option value="2">Jane Doe</option>
+                                            <c:forEach items="${clients}" var="client">
+                                                <option value=${client.id}>${client.nom} ${client.prenom}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -52,7 +54,7 @@
 
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" id="begin" name="begin" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                               data-mask>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -60,7 +62,7 @@
 
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" id="end" name="end" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                               data-mask>
                                     </div>
                                 </div>
                             </div>

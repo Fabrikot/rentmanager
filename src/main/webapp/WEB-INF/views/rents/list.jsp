@@ -34,10 +34,10 @@
                                     <th>Fin</th>
                                     <th>Action</th>
                                 </tr>
-                                <c:forEach items="${rents}" var="rent">
+                                <c:forEach items="${rentsmax}" var="rent">
                                     <td>${rent.id}</td>
-                                    <td>${rent.vehicle_id}.</td>
-                                    <td>${rent.client_id}</td>
+                                    <td>${rent.constructeur} ${rent.modele}</td>
+                                    <td>${rent.nom} ${rent.prenom}</td>
                                     <td>${rent.debut}</td>
                                     <td>${rent.fin}</td>
                                     <!--<td>John Doe</td>-->
@@ -54,24 +54,6 @@
                                     </td>
                                     </tr>
                                 </c:forEach>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Citroen C2</td>
-                                    <td>Jane Doe</td>
-                                    <td>10/01/2019</td>
-                                    <td>13/01/2019</td>
-                                    <td>
-                                        <a class="btn btn-primary disabled" href="${pageContext.request.contextPath}/cars?id=2">
-                                            <i class="fa fa-play"></i>
-                                        </a>
-                                        <a class="btn btn-success disabled" href="#">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger disabled" href="#">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                         <!-- /.box-body -->

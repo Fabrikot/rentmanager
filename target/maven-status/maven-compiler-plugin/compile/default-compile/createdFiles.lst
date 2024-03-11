@@ -17,6 +17,7 @@ com\epf\rentmanager\exception\CLIException.class
 com\epf\rentmanager\servlet\ReservationListServlet.class
 com\epf\rentmanager\exception\ServletException.class
 com\epf\rentmanager\service\ReservationService.class
+com\epf\rentmanager\model\Reservation_avec_nom_prenom_constr_modele.class
 com\epf\rentmanager\utils\IOUtils.class
 com\epf\rentmanager\persistence\FillDatabase.class
 com\epf\rentmanager\servlet\VehicleDeleteServlet.class

@@ -1,9 +1,12 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
+import com.epf.rentmanager.service.VehicleService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +28,18 @@ public class ReservationCreateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try{
+            List<Vehicle> L1 = new ArrayList<>();
+            List<Client> C1 = new ArrayList<>();
+            VehicleService vehicleService = VehicleService.getInstance();
+            ClientService clientService = ClientService.getInstance();
+            L1 = vehicleService.findAll();
+            C1 = clientService.findAll();
+            request.setAttribute("cars",L1);
+            request.setAttribute("clients",C1);
+        }catch (ServiceException e){
+            throw new ServletException();
+        }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

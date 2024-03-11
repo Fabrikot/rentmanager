@@ -43,7 +43,7 @@ public class VehicleService {
 		try{
 			return vehicleDao.findById(id);
 		}catch(DaoException e){
-			throw new ServiceException("Erreur trouver client");
+			throw new ServiceException("Erreur trouver vehicle");
 		}
 	}
 

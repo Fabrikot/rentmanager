@@ -75,8 +75,7 @@ public class VehicleDao {
 								,Statement.RETURN_GENERATED_KEYS);
 		){
 			ps.setLong(1, id);
-			ps.executeUpdate();
-			ResultSet resultSet = ps.getGeneratedKeys();
+			ResultSet resultSet = ps.executeQuery();
 			if (resultSet.next()) {
 				return new Vehicle(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getInt(4));
 			}
