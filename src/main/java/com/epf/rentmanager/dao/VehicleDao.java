@@ -70,9 +70,7 @@ public class VehicleDao {
 	public Vehicle findById(long id) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
-				PreparedStatement ps =
-						connection.prepareStatement( FIND_VEHICLE_QUERY
-								,Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement ps =connection.prepareStatement( FIND_VEHICLE_QUERY,Statement.RETURN_GENERATED_KEYS);
 		){
 			ps.setLong(1, id);
 			ResultSet resultSet = ps.executeQuery();

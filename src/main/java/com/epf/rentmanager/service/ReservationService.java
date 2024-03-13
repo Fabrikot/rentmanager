@@ -29,14 +29,43 @@ public class ReservationService {
         try {
             return reservationDao.create(reservation);
         } catch (DaoException e) {
-            throw new ServiceException("Erreur création reservation" + e.getMessage());
+            throw new ServiceException("Erreur création reservations" + e.getMessage());
         }
     }
     public List<Reservation> findAll() throws ServiceException {
         try{
             return reservationDao.findAll();
         }catch(DaoException e){
-            throw new ServiceException("Erreur trouver clients"+e.getMessage());
+            throw new ServiceException("Erreur trouver reservations"+e.getMessage());
+        }
+    }
+
+    public long delete(Reservation reservation) throws ServiceException {
+        try{
+            return reservationDao.delete(reservation);
+        }catch(DaoException e){
+            throw new ServiceException("Erreur trouver reservations"+e.getMessage());
+        }
+    }
+    public List<Reservation> findResaByVehicleId(long vehicleid) throws ServiceException {
+        try{
+            return reservationDao.findResaByVehicleId(vehicleid);
+        }catch(DaoException e){
+            throw new ServiceException("Erreur trouver reservations"+e.getMessage());
+        }
+    }
+    public List<Reservation> findResaByClientId(long clientid) throws ServiceException {
+        try{
+            return reservationDao.findResaByClientId(clientid);
+        }catch(DaoException e){
+            throw new ServiceException("Erreur trouver reservations"+e.getMessage());
+        }
+    }
+    public int count() throws ServiceException {
+        try{
+            return reservationDao.countAll();
+        }catch(DaoException e){
+            throw new ServiceException("Erreur trouver reservations"+e.getMessage());
         }
     }
 }

@@ -64,5 +64,12 @@ public class ClientService {
 			throw new ServiceException("Erreur trouver clients"+e.getMessage());
 		}
 	}
+	public int count() throws ServiceException {
+		try{
+			return clientDao.countAll();
+		}catch(DaoException e){
+			throw new ServiceException("Erreur trouver clients"+e.getMessage());
+		}
+	}
 	
 }

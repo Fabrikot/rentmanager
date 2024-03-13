@@ -10,8 +10,9 @@ public class Reservation_avec_nom_prenom_constr_modele {
     private String modele;
     private LocalDate debut;
     private LocalDate fin;
+    private long vehicle_id;
 
-    public Reservation_avec_nom_prenom_constr_modele(long id, String nom, String prenom, String constructeur, String modele, LocalDate debut, LocalDate fin) {
+    public Reservation_avec_nom_prenom_constr_modele(long id, String nom, String prenom, String constructeur, String modele, LocalDate debut, LocalDate fin,long vehicle_id) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -19,6 +20,7 @@ public class Reservation_avec_nom_prenom_constr_modele {
         this.modele = modele;
         this.debut = debut;
         this.fin = fin;
+        this.vehicle_id = vehicle_id;
     }
 
     public Reservation_avec_nom_prenom_constr_modele() {
@@ -29,6 +31,7 @@ public class Reservation_avec_nom_prenom_constr_modele {
         this.modele = "R04";
         this.debut = LocalDate.now();
         this.fin = LocalDate.now();
+        this.vehicle_id=1;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class Reservation_avec_nom_prenom_constr_modele {
                 ", modele='" + modele + '\'' +
                 ", debut=" + debut +
                 ", fin=" + fin +
+                ", vehicle_id="+vehicle_id+
                 '}';
     }
 
@@ -58,6 +62,14 @@ public class Reservation_avec_nom_prenom_constr_modele {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public long getVehicle_id() {
+        return vehicle_id;
+    }
+
+    public void setVehicle_id(long vehicle_id) {
+        this.vehicle_id = vehicle_id;
     }
 
     public String getPrenom() {

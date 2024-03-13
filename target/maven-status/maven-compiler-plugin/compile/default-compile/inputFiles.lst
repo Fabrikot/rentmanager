@@ -1,7 +1,9 @@
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\exception\DaoException.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\HomeServlet.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\CLI.java
+C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationDeleteServlet.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientCreateServlet.java
+C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientDetailServlet.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationListServlet.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\FillDatabase.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
@@ -14,6 +16,7 @@ C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\r
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\exception\CLIException.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationCreateServlet.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Client.java
+C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleDetailServlet.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\exception\ServiceException.java
 C:\Users\Fabien\Documents\4A_EPF\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ReservationService.java

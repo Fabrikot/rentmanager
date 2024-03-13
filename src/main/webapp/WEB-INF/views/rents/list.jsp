@@ -35,23 +35,24 @@
                                     <th>Action</th>
                                 </tr>
                                 <c:forEach items="${rentsmax}" var="rent">
-                                    <td>${rent.id}</td>
-                                    <td>${rent.constructeur} ${rent.modele}</td>
-                                    <td>${rent.nom} ${rent.prenom}</td>
-                                    <td>${rent.debut}</td>
-                                    <td>${rent.fin}</td>
-                                    <!--<td>John Doe</td>-->
-                                    <td>
-                                        <a class="btn btn-primary disabled" href="${pageContext.request.contextPath}/cars?id=rent.vehicle_id">
-                                            <i class="fa fa-play"></i>
-                                        </a>
-                                        <a class="btn btn-success disabled" href="#">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger disabled" href="#">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
+                                    <tr>
+                                        <td>${rent.id}</td>
+                                        <td>${rent.constructeur} ${rent.modele}</td>
+                                        <td>${rent.nom} ${rent.prenom}</td>
+                                        <td>${rent.debut}</td>
+                                        <td>${rent.fin}</td>
+                                        <!--<td>John Doe</td>-->
+                                        <td>
+                                            <a class="btn btn-primary" href="${pageContext.request.contextPath}/cars/details?id=${rent.vehicle_id}">
+                                                <i class="fa fa-play"></i>
+                                            </a>
+                                            <a class="btn btn-success disabled" href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/rents/delete?id=${rent.id}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </table>

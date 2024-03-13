@@ -25,7 +25,7 @@ public class ClientDeleteServlet extends HttpServlet {
 
         try {
             ClientService clientService = ClientService.getInstance();
-            Long id = Long.parseLong(request.getParameter("id"));
+            long id = Long.parseLong(request.getParameter("id"));
             long l = clientService.delete(new Client(id, "", "","", LocalDate.now()));
             response.sendRedirect("/rentmanager/users");
         }catch (ServiceException e){

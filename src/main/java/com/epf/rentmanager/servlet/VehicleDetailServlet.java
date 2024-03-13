@@ -18,9 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/rents")
-public class ReservationListServlet extends HttpServlet {
-
+@WebServlet("/cars/details")
+public class VehicleDetailServlet extends HttpServlet {
     /**
      *
      */
@@ -28,29 +27,33 @@ public class ReservationListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            List<Reservation> L1 = new ArrayList<Reservation>();
-            List<Reservation_avec_nom_prenom_constr_modele> megaList = new ArrayList<Reservation_avec_nom_prenom_constr_modele>();
 
-            ReservationService reservationService = ReservationService.getInstance();
+        try {
+            List<Reservation_avec_nom_prenom_constr_modele> megaList = new ArrayList<>();
+
             VehicleService vehicleService = VehicleService.getInstance();
+            ReservationService reservationService = ReservationService.getInstance();
             ClientService clientService = ClientService.getInstance();
 
-            L1 = reservationService.findAll();
+            long id = Long.parseLong(request.getParameter("id"));
+            Vehicle V1 = vehicleService.findById(id);
+            List<Reservation> L1 = reservationService.findResaByVehicleId(id);
             L1.forEach(r->{
                 try {
-                    Vehicle voiture = vehicleService.findById(r.getVehicle_id());
                     Client client = clientService.findById(r.getClient_id());
-                    Reservation_avec_nom_prenom_constr_modele reservMax = new Reservation_avec_nom_prenom_constr_modele(r.getId(),client.getNom(),client.getPrenom(),voiture.getConstructeur(),voiture.getModele(),r.getDebut(),r.getFin(),voiture.getId());
+                    Reservation_avec_nom_prenom_constr_modele reservMax = new Reservation_avec_nom_prenom_constr_modele(r.getId(),client.getNom(),client.getPrenom(),V1.getConstructeur(),V1.getModele(),r.getDebut(),r.getFin(),V1.getId());
                     megaList.add(reservMax);
                 } catch (ServiceException e) {
                     throw new RuntimeException(e);
                 }
             });
+            request.setAttribute("nb_resa",L1.size());
+            request.setAttribute("car",V1);
             request.setAttribute("rentsmax",megaList);
         }catch (ServiceException e){
             throw new ServletException();
         }
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/details.jsp").forward(request, response);
     }
+
 }
