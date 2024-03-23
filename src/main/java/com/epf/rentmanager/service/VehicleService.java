@@ -36,6 +36,17 @@ public class VehicleService {
 		}
 	}
 
+	public long update(Vehicle vehicle) throws ServiceException {
+		if ((vehicle.getConstructeur().isEmpty())||(vehicle.getNb_places()<=1)){
+			throw new ServiceException("La vehicule doit avoir un constructeur et un nb de places correct");
+		}
+		try{
+			return vehicleDao.update(vehicle);
+		}catch(DaoException e){
+			throw new ServiceException("Erreur création vehicule");
+		}
+	}
+
 	public Vehicle findById(long id) throws ServiceException {
 		if (id==0){
 			throw new ServiceException("Donnez un autre ID");

@@ -20,6 +20,7 @@ public class VehicleDao {
 	}
 	
 	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES(?, ?, ?);";
+	private static final String UPDATE_VEHICLE_QUERY = "UPDATE Vehicle SET constructeur = ?, modele = ?, nb_places = ? WHERE id=?;";
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
@@ -35,6 +36,29 @@ public class VehicleDao {
 			ps.setString(1, vehicle.getConstructeur());
 			ps.setString(2, vehicle.getModele());
 			ps.setInt(3, vehicle.getNb_places());
+			ps.executeUpdate();
+			ResultSet resultSet = ps.getGeneratedKeys();
+			if (resultSet.next()) {
+				long id = resultSet.getLong(1);
+				vehicle.setId(id);
+				return vehicle.getId();
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
+		return 0;
+	}
+	public long update(Vehicle vehicle) throws  DaoException{
+		try (
+				Connection connection = ConnectionManager.getConnection();
+				PreparedStatement ps =
+						connection.prepareStatement( UPDATE_VEHICLE_QUERY
+								,Statement.RETURN_GENERATED_KEYS);
+		){
+			ps.setString(1, vehicle.getConstructeur());
+			ps.setString(2, vehicle.getModele());
+			ps.setInt(3, vehicle.getNb_places());
+			ps.setLong(4, vehicle.getId());
 			ps.executeUpdate();
 			ResultSet resultSet = ps.getGeneratedKeys();
 			if (resultSet.next()) {
