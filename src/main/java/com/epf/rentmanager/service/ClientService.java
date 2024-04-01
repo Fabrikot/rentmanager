@@ -38,6 +38,17 @@ public class ClientService {
 			throw new ServiceException("Erreur création client"+e.getMessage());
 		}
 	}
+	public long update(Client client) throws ServiceException {
+		if ((client.getNom().isEmpty())||(client.getPrenom().isEmpty())){
+			throw new ServiceException("L'utilisateur doit avoir un nom/prénom");
+		}
+		try{
+			client.setNom(client.getNom().toUpperCase());
+			return clientDao.update(client);
+		}catch(DaoException e){
+			throw new ServiceException("Erreur création client"+e.getMessage());
+		}
+	}
 
 	public Client findById(long id) throws ServiceException {
 		if (id==0){

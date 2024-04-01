@@ -26,6 +26,7 @@ public class ClientDao {
 	}
 	
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
+	private static final String UPDATE_CLIENT_QUERY = "UPDATE Client SET nom = ?, prenom = ?, email = ? WHERE id=?;";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
@@ -54,7 +55,29 @@ public class ClientDao {
 		}
 		return 0;
 	}
-
+	public long update(Client client) throws DaoException {
+		try (
+				Connection connection = ConnectionManager.getConnection();
+				PreparedStatement ps =
+						connection.prepareStatement( UPDATE_CLIENT_QUERY
+								,Statement.RETURN_GENERATED_KEYS);
+		){
+			ps.setString(1, client.getNom());
+			ps.setString(2, client.getPrenom());
+			ps.setString(3, client.getEmail());
+			ps.setLong(4, client.getId());
+			ps.executeUpdate();
+			ResultSet resultSet = ps.getGeneratedKeys();
+			if (resultSet.next()) {
+				long id = resultSet.getLong(1);
+				client.setId(id);
+				return client.getId();
+			}
+		} catch (SQLException e) {
+			throw new DaoException("PB de DAO"+e.getMessage());
+		}
+		return 0;
+	}
 	public int countAll() throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -81,7 +104,7 @@ public class ClientDao {
 							,Statement.RETURN_GENERATED_KEYS);
 			){
 			ps.setLong(1, client.getId());
-			ps.execute();
+			ps.executeUpdate();
 			ResultSet resultSet = ps.getGeneratedKeys();
 			if (resultSet.next()) {
 				return resultSet.getLong(1);
