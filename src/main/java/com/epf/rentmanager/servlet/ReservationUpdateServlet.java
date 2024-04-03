@@ -7,6 +7,8 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,26 +26,33 @@ public class ReservationUpdateServlet extends HttpServlet {
     /**
      *
      */
+    @Autowired
+    VehicleService vehicleService;
+    @Autowired
+    ClientService clientService;
+    @Autowired
+    ReservationService reservationService;
     private static final long serialVersionUID = 1L;
-
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
             List<Vehicle> LV1 = new ArrayList<>();
             List<Client> LC1 = new ArrayList<>();
-            VehicleService vehicleService = VehicleService.getInstance();
-            ClientService clientService = ClientService.getInstance();
-            ReservationService reservationService = ReservationService.getInstance();
+
             long id = Long.parseLong(request.getParameter("id"));
 
             Reservation R1 = reservationService.findResaById(id);
             Vehicle V1 = vehicleService.findById(R1.getVehicle_id());
             Client C1 = clientService.findById(R1.getClient_id());
 
-
             LV1 = vehicleService.findAll();
             LC1 = clientService.findAll();
-            LV1.remove(Integer.valueOf(String.valueOf(V1.getId()-1)));
+            LV1.remove(Integer.parseInt(String.valueOf(V1.getId()-1)));
             LC1.remove(Integer.parseInt(String.valueOf(C1.getId()-1)));
 
             request.setAttribute("car",V1);
@@ -60,13 +69,13 @@ public class ReservationUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            ReservationService reservationService = ReservationService.getInstance();
             long id = Long.parseLong(request.getParameter("id"));
             long vehicleid = Long.parseLong(request.getParameter("car"));
             long clientid = Long.parseLong(request.getParameter("client"));
             LocalDate debut = LocalDate.parse(request.getParameter("begin"));
             LocalDate fin = LocalDate.parse(request.getParameter("end"));
-            Reservation R1 = new Reservation(id,clientid, vehicleid, debut, fin);
+            Reservation R1 = new Reservation(id, clientid, vehicleid, debut, fin);
+            System.out.println(R1);
             long l = reservationService.update(R1);
             response.sendRedirect("/rentmanager/rents");
         }catch (ServiceException e){

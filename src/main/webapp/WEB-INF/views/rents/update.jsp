@@ -32,7 +32,7 @@
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="car" name="car" autocomplete="on">
-                                        <option value=${car.id}>${car.constructeur} ${car.modele}</option>
+                                            <option value=${car.id}>${car.constructeur} ${car.modele}</option>
                                             <c:forEach items="${cars}" var="car">
                                                 <option value=${car.id}>${car.constructeur} ${car.modele}</option>
                                             </c:forEach>
@@ -43,7 +43,7 @@
                                     <label for="client" class="col-sm-2 control-label">Client</label>
 
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="client" name="client" aria-selected="" autocomplete="on">
+                                        <select class="form-control" id="client" name="client" autocomplete="on">
                                             <option value=${client.id}>${client.nom} ${client.prenom}</option>
                                             <c:forEach items="${clients}" var="client">
                                                 <option value=${client.id}>${client.nom} ${client.prenom}</option>

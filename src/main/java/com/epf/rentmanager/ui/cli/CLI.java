@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class CLI {
 
     public static void main(String[] args) throws CLIException {
-        ClientService instance=ClientService.getInstance();
+        //ClientService instance=ClientService.getInstance();
         print("Bienvenue dans l'interface CLI :");
         print("Veuillez sélectionner 1 ou 2 pour Client ou Véhicules");
         boolean bool=false;
@@ -33,15 +33,15 @@ public class CLI {
                         String prenom = readString("Prenom :", true);
                         String email = readString("Email :", true);
                         LocalDate date = readDate("Date de naissance :", true);
-                        long idcreate =instance.create(new Client(id, nom, prenom, email, date));
-                        print(String.valueOf(idcreate));
+                        //long idcreate =instance.create(new Client(id, nom, prenom, email, date));
+                        //print(String.valueOf(idcreate));
                     }catch (Exception e){
                         throw new CLIException(e.getMessage());
                     }
                 } else if(x1.equals("2")){
                     try {
                         print("Voici les informations des clients de la base de données :");
-                        List<Client> L1 =instance.findAll();
+                        //List<Client> L1 =instance.findAll();
                     }catch (Exception e){
                         throw new CLIException(e.getMessage());
                     }

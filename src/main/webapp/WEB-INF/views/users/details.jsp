@@ -74,24 +74,14 @@
                                             <th>Constructeur</th>
                                             <th style=>Nombre de places</th>
                                         </tr>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>Renault</td>
-                                            <td>Clio</td>
-                                            <td>5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2.</td>
-                                            <td>Peugeot</td>
-                                            <td>206</td>
-                                            <td>5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3.</td>
-                                            <td>Volkswagen</td>
-                                            <td>Touran</td>
-                                            <td>7</td>
-                                        </tr>
+                                        <c:forEach items="${cars}" var="car">
+                                            <tr>
+                                                <td>${car.id}</td>
+                                                <td>${car.modele}</td>
+                                                <td>${car.constructeur}</td>
+                                                <td>${car.nb_places}</td>
+                                            </tr>
+                                        </c:forEach>
                                     </table>
                                 </div>
                             </div>

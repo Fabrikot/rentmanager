@@ -8,21 +8,14 @@ import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Reservation;
 
 import com.epf.rentmanager.dao.ReservationDao;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReservationService {
 
     private ReservationDao reservationDao;
-    public static ReservationService instance;
-
-    private ReservationService() {
-        this.reservationDao = reservationDao.getInstance();
-    }
-
-    public static ReservationService getInstance() {
-        if (instance == null) {
-            instance = new ReservationService();
-        }
-        return instance;
+    private ReservationService(ReservationDao reservationDao) {
+        this.reservationDao = reservationDao;
     }
 
     public long create(Reservation reservation) throws ServiceException {

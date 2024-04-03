@@ -7,6 +7,8 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,12 +26,19 @@ public class ReservationDeleteServlet extends HttpServlet {
     /**
      *
      */
+
+    @Autowired
+    ReservationService reservationService;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            ReservationService reservationService = ReservationService.getInstance();
             long id = Long.parseLong(request.getParameter("id"));
             long l = reservationService.delete(new Reservation(id,1,1, LocalDate.now(),LocalDate.now()));
             response.sendRedirect("/rentmanager/rents");
@@ -40,7 +49,6 @@ public class ReservationDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            ReservationService reservationService = ReservationService.getInstance();
             long vehicleid = Long.parseLong(request.getParameter("car"));
             long clientid = Long.parseLong(request.getParameter("client"));
             LocalDate debut = LocalDate.parse(request.getParameter("begin"));
