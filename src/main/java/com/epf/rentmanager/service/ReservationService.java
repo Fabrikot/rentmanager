@@ -32,6 +32,13 @@ public class ReservationService {
             throw new ServiceException("Erreur création reservations" + e.getMessage());
         }
     }
+    public long update(Reservation reservation) throws ServiceException {
+        try{
+            return reservationDao.update(reservation);
+        }catch(DaoException e){
+            throw new ServiceException("Erreur update réservation"+e.getMessage());
+        }
+    }
     public List<Reservation> findAll() throws ServiceException {
         try{
             return reservationDao.findAll();
@@ -52,6 +59,13 @@ public class ReservationService {
             return reservationDao.findResaByVehicleId(vehicleid);
         }catch(DaoException e){
             throw new ServiceException("Erreur trouver reservations"+e.getMessage());
+        }
+    }
+    public Reservation findResaById(long id) throws ServiceException {
+        try{
+            return reservationDao.findResaById(id);
+        }catch(DaoException e){
+            throw new ServiceException("Erreur trouver reservation"+e.getMessage());
         }
     }
     public List<Reservation> findResaByClientId(long clientid) throws ServiceException {

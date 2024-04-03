@@ -2,7 +2,6 @@ package com.epf.rentmanager.servlet;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
-import jdk.vm.ci.meta.Local;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

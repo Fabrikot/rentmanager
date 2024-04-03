@@ -12,9 +12,11 @@ com\epf\rentmanager\dao\ReservationDao.class
 com\epf\rentmanager\servlet\ReservationCreateServlet.class
 com\epf\rentmanager\servlet\VehicleCreateServlet.class
 com\epf\rentmanager\servlet\ClientListServlet.class
+com\epf\rentmanager\servlet\ReservationUpdateServlet.class
 com\epf\rentmanager\model\Vehicle.class
 com\epf\rentmanager\servlet\HomeServlet.class
 com\epf\rentmanager\dao\ClientDao.class
+com\epf\rentmanager\configuration\AppConfiguration.class
 com\epf\rentmanager\exception\CLIException.class
 com\epf\rentmanager\servlet\VehicleDetailServlet.class
 com\epf\rentmanager\servlet\ReservationListServlet.class

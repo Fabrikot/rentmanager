@@ -29,14 +29,28 @@ public class ReservationUpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            List<Vehicle> L1 = new ArrayList<>();
-            List<Client> C1 = new ArrayList<>();
+            List<Vehicle> LV1 = new ArrayList<>();
+            List<Client> LC1 = new ArrayList<>();
             VehicleService vehicleService = VehicleService.getInstance();
             ClientService clientService = ClientService.getInstance();
-            L1 = vehicleService.findAll();
-            C1 = clientService.findAll();
-            request.setAttribute("cars",L1);
-            request.setAttribute("clients",C1);
+            ReservationService reservationService = ReservationService.getInstance();
+            long id = Long.parseLong(request.getParameter("id"));
+
+            Reservation R1 = reservationService.findResaById(id);
+            Vehicle V1 = vehicleService.findById(R1.getVehicle_id());
+            Client C1 = clientService.findById(R1.getClient_id());
+
+
+            LV1 = vehicleService.findAll();
+            LC1 = clientService.findAll();
+            LV1.remove(Integer.valueOf(String.valueOf(V1.getId()-1)));
+            LC1.remove(Integer.parseInt(String.valueOf(C1.getId()-1)));
+
+            request.setAttribute("car",V1);
+            request.setAttribute("client",C1);
+            request.setAttribute("cars",LV1);
+            request.setAttribute("clients",LC1);
+            request.setAttribute("rent",R1);
 
         }catch (ServiceException e){
             throw new ServletException();
@@ -47,12 +61,13 @@ public class ReservationUpdateServlet extends HttpServlet {
             throws ServletException, IOException {
         try{
             ReservationService reservationService = ReservationService.getInstance();
+            long id = Long.parseLong(request.getParameter("id"));
             long vehicleid = Long.parseLong(request.getParameter("car"));
             long clientid = Long.parseLong(request.getParameter("client"));
             LocalDate debut = LocalDate.parse(request.getParameter("begin"));
             LocalDate fin = LocalDate.parse(request.getParameter("end"));
-            Reservation V1 = new Reservation(1,clientid, vehicleid, debut, fin);
-            long l = reservationService.create(V1);
+            Reservation R1 = new Reservation(id,clientid, vehicleid, debut, fin);
+            long l = reservationService.update(R1);
             response.sendRedirect("/rentmanager/rents");
         }catch (ServiceException e){
             throw new ServletException();

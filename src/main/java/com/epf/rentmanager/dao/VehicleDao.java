@@ -104,7 +104,7 @@ public class VehicleDao {
 		} catch (SQLException e) {
 			throw new DaoException();
 		}
-		return new Vehicle();
+		return null;
 	}
 	public int countAll() throws DaoException {
 		try (
