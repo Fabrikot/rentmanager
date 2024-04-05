@@ -56,21 +56,26 @@ public class ClientDetailServlet extends HttpServlet {
                     Reservation_avec_nom_prenom_constr_modele reservMax = new Reservation_avec_nom_prenom_constr_modele(r.getId(),C1.getNom(), C1.getPrenom(),voiture.getConstructeur(),voiture.getModele(),r.getDebut(),r.getFin(),voiture.getId());
                     megaList.add(reservMax);
                     Vehicle vehicle_trouve = LV1.stream()
-                            .filter(vehicle -> voiture.getId() == (vehicle.getId()))
+                            .filter(vehicle -> voiture.getId() == vehicle.getId())
                             .findAny()
                             .orElse(null);
                     if (vehicle_trouve==null){
+                        long nb_resa_car = LR1.stream()
+                                .filter(resa -> voiture.getId() == resa.getVehicle_id()).count();
+                        voiture.setModele(voiture.getConstructeur()+" "+voiture.getModele());
+                        voiture.setConstructeur(String.valueOf(nb_resa_car));
                         LV1.add(voiture);
                     }
+
                 } catch (ServiceException e) {
                     throw new RuntimeException(e);
                 }
             });
             request.setAttribute("nb_resa",LR1.size());
+            request.setAttribute("nb_car",LV1.size());
             request.setAttribute("user",C1);
             request.setAttribute("rentsmax",megaList);
             request.setAttribute("cars",LV1);
-
         }catch (ServiceException e){
             throw new ServletException();
         }

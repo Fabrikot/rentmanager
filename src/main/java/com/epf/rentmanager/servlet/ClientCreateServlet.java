@@ -38,9 +38,15 @@ public class ClientCreateServlet extends HttpServlet {
             LocalDate date = LocalDate.parse(request.getParameter("birthdate"));
             Client C1 = new Client(1,nom, prenom, email,date);
             long l = clientService.create(C1);
+            switch ((int) l){
+                case -1: System.out.println("Nom vide");response.sendRedirect("/rentmanager/users/create");break;
+                case -2: System.out.println("Prenom vide");response.sendRedirect("/rentmanager/users/create");break;
+                case -3: System.out.println("Mauvais âge");response.sendRedirect("/rentmanager/users/create");break;
+                case -4: System.out.println("E-mail déjà existant");response.sendRedirect("/rentmanager/users/create");break;
+                default: response.sendRedirect("/rentmanager/users");
+            }
         }catch (ServiceException e){
             throw new ServletException();
         }
-        response.sendRedirect("/rentmanager/users");
     }
 }

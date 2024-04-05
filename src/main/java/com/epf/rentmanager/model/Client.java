@@ -1,9 +1,14 @@
 package com.epf.rentmanager.model;
+import org.springframework.lang.NonNull;
+
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class Client {
     private long id;
+    @NotNull
     private String nom;
+    @NotNull
     private String prenom;
     private String email;
     private LocalDate naissance;

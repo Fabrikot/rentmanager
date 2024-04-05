@@ -27,7 +27,7 @@
                                     <b>Reservation(s)</b> <a class="pull-right">${nb_resa}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Voiture(s)</b> <a class="pull-right">3</a>
+                                    <b>Voiture(s)</b> <a class="pull-right">${nb_car}</a>
                                 </li>
                             </ul>
                         </div>
@@ -70,8 +70,8 @@
                                     <table class="table table-striped">
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th>Modele</th>
-                                            <th>Constructeur</th>
+                                            <th>Modele et Constructeur</th>
+                                            <th>Nombre de reservations</th>
                                             <th style=>Nombre de places</th>
                                         </tr>
                                         <c:forEach items="${cars}" var="car">

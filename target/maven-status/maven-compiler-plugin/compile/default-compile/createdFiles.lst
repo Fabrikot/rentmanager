@@ -11,6 +11,7 @@ com\epf\rentmanager\servlet\ClientUpdateServlet.class
 com\epf\rentmanager\dao\ReservationDao.class
 com\epf\rentmanager\servlet\ReservationCreateServlet.class
 com\epf\rentmanager\servlet\VehicleCreateServlet.class
+com\epf\rentmanager\configuration\WebConfiguration.class
 com\epf\rentmanager\servlet\ClientListServlet.class
 com\epf\rentmanager\servlet\ReservationUpdateServlet.class
 com\epf\rentmanager\model\Vehicle.class
