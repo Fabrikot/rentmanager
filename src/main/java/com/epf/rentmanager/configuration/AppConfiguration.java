@@ -12,8 +12,4 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 @ComponentScan({ "com.epf.rentmanager.service", "com.epf.rentmanager.dao",
         "com.epf.rentmanager.persistence" }) // packages dans lesquels chercher les beans
 public class AppConfiguration {
-//    @Bean
-//    public LocalValidatorFactoryBean validator() {
-//        return new LocalValidatorFactoryBean();
-//    }
 }

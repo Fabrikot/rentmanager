@@ -1,5 +1,7 @@
 package com.epf.rentmanager.service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import com.epf.rentmanager.model.Reservation;
 
 import com.epf.rentmanager.dao.ReservationDao;
 import org.springframework.stereotype.Service;
+import com.epf.rentmanager.utils.IOUtils;
 
 @Service
 public class ReservationService {
@@ -20,6 +23,20 @@ public class ReservationService {
 
     public long create(Reservation reservation) throws ServiceException {
         try {
+            List<Reservation> LR1 = reservationDao.findAll();
+            List<Reservation> LResa_par_vehicle = reservationDao.findResaByVehicleId(reservation.getVehicle_id());
+            if (reservation.getFin().isBefore(reservation.getDebut())){
+                throw new ServiceException("Le début de la réservation doit être avant la fin");
+            }
+            else if (Period.between(reservation.getDebut(),reservation.getFin()).getDays()>7){
+                throw new ServiceException("La voiture ne peut pas être réservée plus de 7 jours");
+            }
+            else if (LR1.stream().anyMatch(reservation_existante -> (reservation_existante.getFin().isAfter(reservation.getDebut())||(reservation_existante.getFin().isEqual(reservation.getDebut())))
+            && (reservation_existante.getVehicle_id()==(reservation.getVehicle_id())))){
+                throw new ServiceException("Voiture déjà reservée");
+            } else if (IOUtils.estReservePdt30j(LResa_par_vehicle,reservation)){
+                throw new ServiceException("Voiture réservée trop longtemps");
+            }
             return reservationDao.create(reservation);
         } catch (DaoException e) {
             throw new ServiceException("Erreur création reservations" + e.getMessage());
@@ -27,6 +44,20 @@ public class ReservationService {
     }
     public long update(Reservation reservation) throws ServiceException {
         try{
+            List<Reservation> LR1 = reservationDao.findAll();
+            List<Reservation> LResa_par_vehicle = reservationDao.findResaByVehicleId(reservation.getVehicle_id());
+            if (reservation.getFin().isBefore(reservation.getDebut())){
+                throw new ServiceException("Le début de la réservation doit être avant la fin");
+            }
+            else if (Period.between(reservation.getDebut(),reservation.getFin()).getDays()>7){
+                throw new ServiceException("La voiture ne peut pas être réservée plus de 7 jours");
+            }
+            else if (LR1.stream().anyMatch(reservation_existante -> (reservation_existante.getFin().isAfter(reservation.getDebut())||(reservation_existante.getFin().isEqual(reservation.getDebut())))
+                    && (reservation_existante.getVehicle_id()==(reservation.getVehicle_id())) && (reservation_existante.getId()!=reservation.getId()))){
+                throw new ServiceException("Voiture déjà reservée");
+            } else if (IOUtils.estReservePdt30j(LResa_par_vehicle,reservation)){
+                throw new ServiceException("Voiture réservée trop longtemps");
+            }
             return reservationDao.update(reservation);
         }catch(DaoException e){
             throw new ServiceException("Erreur update réservation"+e.getMessage());

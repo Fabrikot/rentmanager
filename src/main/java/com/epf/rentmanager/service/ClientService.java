@@ -12,17 +12,13 @@ import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.dao.ClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
+import javax.validation.*;
 
 @Service
 @Validated
 public class ClientService {
-//	@Autowired
-//	private Validator validator;
 	private ClientDao clientDao;
 
 	private ClientService(ClientDao clientDao) {
@@ -30,19 +26,17 @@ public class ClientService {
 	}
 
 	public long create(Client client) throws ServiceException {
-
-		//Set<ConstraintViolation<Client>> violations = validator.validate(client);
 		try{
 			List<Client> LC1 = clientDao.findAll();
-			/*if ((client.getNom().isEmpty())){
-				return -1;
-			} else if (client.getPrenom().isEmpty()) {
-				return -2;
+			if ((client.getNom().length()<3)){
+				throw new ServiceException("Nom incorrect");
+			} else if (client.getPrenom().length()<3) {
+				throw new ServiceException("Prenom incorrect");
 			} else if (client.getNaissance().isAfter(LocalDate.now().minusYears(18))) {
-				return -3;
+				throw new ServiceException("Trop jeune");
 			} else if (LC1.stream().anyMatch(client1 -> client1.getEmail().equals(client.getEmail()))){
-				return -4;
-			}*/
+				throw new ServiceException("E-mail déjà existant");
+			}
 			client.setNom(client.getNom().toUpperCase());
 			return clientDao.create(client);
 		}catch(DaoException e){
@@ -50,10 +44,17 @@ public class ClientService {
 		}
 	}
 	public long update(Client client) throws ServiceException {
-		if ((client.getNom().isEmpty())||(client.getPrenom().isEmpty())){
-			throw new ServiceException("L'utilisateur doit avoir un nom/prénom");
-		}
 		try{
+			List<Client> LC1 = clientDao.findAll();
+			if ((client.getNom().length()<3)){
+				throw new ServiceException("Nom incorrect");
+			} else if (client.getPrenom().length()<3) {
+				throw new ServiceException("Prenom incorrect");
+			} else if (client.getNaissance().isAfter(LocalDate.now().minusYears(18))) {
+				throw new ServiceException("Trop jeune");
+			} else if (LC1.stream().anyMatch(client1 -> client1.getEmail().equals(client.getEmail()))){
+				throw new ServiceException("E-mail déjà existant");
+			}
 			client.setNom(client.getNom().toUpperCase());
 			return clientDao.update(client);
 		}catch(DaoException e){

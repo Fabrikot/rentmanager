@@ -42,12 +42,10 @@ public class ReservationCreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            List<Vehicle> L1 = new ArrayList<>();
-            List<Client> C1 = new ArrayList<>();
-            L1 = vehicleService.findAll();
-            C1 = clientService.findAll();
-            request.setAttribute("cars",L1);
-            request.setAttribute("clients",C1);
+            List<Vehicle> LV1 = vehicleService.findAll();
+            List<Client> LC1 = clientService.findAll();
+            request.setAttribute("cars",LV1);
+            request.setAttribute("clients",LC1);
         }catch (ServiceException e){
             throw new ServletException();
         }
@@ -64,7 +62,16 @@ public class ReservationCreateServlet extends HttpServlet {
             long l = reservationService.create(V1);
             response.sendRedirect("/rentmanager/rents");
         }catch (ServiceException e){
-            throw new ServletException();
+            try {
+                List<Vehicle> LV1 = vehicleService.findAll();
+                List<Client> LC1 = clientService.findAll();
+                request.setAttribute("cars",LV1);
+                request.setAttribute("clients",LC1);
+                request.setAttribute("exception",e.getMessage());
+                this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+            } catch (ServiceException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

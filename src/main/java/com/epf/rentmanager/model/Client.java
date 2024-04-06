@@ -10,7 +10,9 @@ public class Client {
     private String nom;
     @NotNull
     private String prenom;
+    @NotNull
     private String email;
+    @NotNull
     private LocalDate naissance;
     public Client(){
         id=1;

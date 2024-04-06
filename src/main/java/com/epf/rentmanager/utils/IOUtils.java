@@ -1,10 +1,15 @@
 package com.epf.rentmanager.utils;
 
+import com.epf.rentmanager.model.Reservation;
+
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Comparator;
 import java.util.Scanner;
-
+import java.time.LocalDate;
+import java.util.List;
 public class IOUtils {
 	
 	/**
@@ -101,5 +106,28 @@ public class IOUtils {
 		} while (error && mandatory);
         
 		return output;
+	}
+
+	public static boolean estReservePdt30j(List<Reservation> reservations,Reservation new_reservation) {
+		reservations.sort(Comparator.comparing(Reservation::getDebut));
+		reservations.add(new_reservation);
+		LocalDate datedefin_temporaire = reservations.get(0).getFin();
+		int totaljours = Period.between(reservations.get(0).getDebut(),datedefin_temporaire).getDays();
+		for (int i = 1; i < reservations.size(); i++) {
+			Reservation reservation = reservations.get(i);
+			if (reservation.getDebut().isAfter(datedefin_temporaire.plusDays(1))) {
+				if (totaljours >= 30) {
+					return true;
+				}
+				datedefin_temporaire = reservation.getDebut();
+			} else {
+				datedefin_temporaire = reservation.getFin();
+				totaljours += Period.between(reservation.getDebut(), reservation.getFin()).getDays() + 1;
+			}
+		}
+		if (totaljours >= 30) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -15,7 +15,6 @@ public class ClientTest {
         // Given
         Client legalUser = new Client(1,"John", "Doe", "john.doe@ensta.fr", LocalDate.parse("17/05/2002",
                 DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
         // Then
         assertTrue(Users.isLegal(legalUser));
     }

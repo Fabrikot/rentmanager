@@ -46,16 +46,25 @@ public class FillDatabase {
             Statement stmt = connection.createStatement();
             stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Renault', 'Austral',  4)");
             stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Peugeot', '308', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Seat', 'Ibiza', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Nissan', 'LEAF', 4)");
+            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Seat', 'Ibiza', 6)");
+            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Nissan', 'Leaf', 4)");
             
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Dupont', 'Jean', 'jean.dupont@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Morin', 'Sabrina', 'sabrina.morin@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Afleck', 'Ben', 'ben.afleck@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Rousseau', 'Jacques', 'jacques.rousseau@email.com', '1988-01-22')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Serien', 'Jean', 'jean.serien@email.com', '2001-01-22')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Swift', 'Taylor', 'swift.taylor@email.com', '1999-04-13')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Afleck', 'Ben', 'ben.afleck@email.com', '1998-10-06')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Rousseau', 'Jacques', 'jacques.rousseau@email.com', '2000-08-18')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Cena', 'John', 'john.tututulu@email.com', '1996-06-14')");
 
-            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(1, 1, '1999-01-22', '1988-03-22')");
-            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(3, 2, '1999-04-22', '1988-05-22')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(1, 1, '2022-02-10', '2022-02-16')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(3, 2, '2023-04-22', '2023-04-24')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(3, 2, '2023-05-11', '2023-05-17')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(3, 4, '2023-05-24', '2023-05-26')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(2, 3, '2023-10-05', '2023-10-10')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(4, 1, '2023-11-09', '2023-11-13')");
+
+
+
+
 
             connection.commit();
             System.out.println("Success!");

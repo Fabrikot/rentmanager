@@ -67,8 +67,10 @@
                                     </div>
                                 </div>
                                 -->
+
                             </div>
                             <!-- /.box-body -->
+
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-info pull-right">Ajouter</button>
                             </div>

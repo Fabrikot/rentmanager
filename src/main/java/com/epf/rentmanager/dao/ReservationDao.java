@@ -43,7 +43,7 @@ public class ReservationDao {
 				return reservation.getId();
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur création DAO");
 		}
 		return 0;
 	}
