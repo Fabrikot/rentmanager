@@ -5,7 +5,9 @@ Le Gestionnaire de Réservations de Voiture est une application conçue pour fac
 ## Fonctionnalités
 
 Créer des clients, update, delete, details
+
 Créer des voitures, update, delete, details
+
 Créer des réservations, update, delete
 
 ## Exemples des fonctionnalités
@@ -24,6 +26,7 @@ Créer des réservations, update, delete
 (créer réservation)
 
 N'oubliez pas de clone, de lancer le filldatabase, de mvn clean install.
+
 L'execution du programme se fait avec mvn tomcat7:run
 
 ## Contact
