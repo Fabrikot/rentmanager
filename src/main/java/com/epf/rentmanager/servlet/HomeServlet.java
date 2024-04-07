@@ -34,6 +34,19 @@ public class HomeServlet extends HttpServlet {
 	}
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Calcule le nombre de véhicules, clients et réservations et affiche la Home page
+	 * @param request   an {@link HttpServletRequest} object that
+	 *                  contains the request the client has made
+	 *                  of the servlet
+	 *
+	 * @param response  an {@link HttpServletResponse} object that
+	 *                  contains the response the servlet sends
+	 *                  to the client
+	 *
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {

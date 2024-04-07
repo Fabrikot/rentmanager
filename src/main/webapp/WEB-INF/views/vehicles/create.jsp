@@ -52,7 +52,7 @@
                                     <label for="seats" class="col-sm-2 control-label">Nombre de places</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="seats" name="seats" placeholder="Nombre de places" required>
+                                        <input type="number" class="form-control" id="seats" name="seats" placeholder="Nombre de places" required>
                                     </div>
                                 </div>
                                 <!--
@@ -72,6 +72,7 @@
                             <!-- /.box-body -->
 
                             <div class="box-footer">
+                                <label style="color: red;">${exception}</label>
                                 <button type="submit" class="btn btn-info pull-right">Ajouter</button>
                             </div>
                             <!-- /.box-footer -->

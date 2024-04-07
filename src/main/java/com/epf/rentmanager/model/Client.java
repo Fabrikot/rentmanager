@@ -18,7 +18,7 @@ public class Client {
         id=1;
         nom="Dev";
         prenom="Fab";
-        email="fabdev2@gmail.com";
+        email="fabdev@gmail.com";
         naissance=LocalDate.now();
     }
 

@@ -38,22 +38,33 @@ public class ReservationUpdateServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
+
+    /**
+     * Charge la liste de clients et de voitures et affiche la page de création avec les infos de la réservation à modifier
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            List<Vehicle> LV1 = new ArrayList<>();
-            List<Client> LC1 = new ArrayList<>();
-
             long id = Long.parseLong(request.getParameter("id"));
 
             Reservation R1 = reservationService.findResaById(id);
             Vehicle V1 = vehicleService.findById(R1.getVehicle_id());
             Client C1 = clientService.findById(R1.getClient_id());
 
-            LV1 = vehicleService.findAll();
-            LC1 = clientService.findAll();
-            LV1.remove(Integer.parseInt(String.valueOf(V1.getId()-1)));
-            LC1.remove(Integer.parseInt(String.valueOf(C1.getId()-1)));
+            List<Vehicle> LV1 = vehicleService.findAll();
+            List<Client> LC1 = clientService.findAll();
+            LV1.remove(V1.getId()-1);
+            LC1.remove(C1.getId()-1);
 
             request.setAttribute("car",V1);
             request.setAttribute("client",C1);
@@ -62,10 +73,25 @@ public class ReservationUpdateServlet extends HttpServlet {
             request.setAttribute("rent",R1);
 
         }catch (ServiceException e){
-            throw new ServletException();
+            throw new ServletException(e.getMessage());
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/update.jsp").forward(request, response);
     }
+
+    /**
+     * Permet de gérer la mise à jour d'une réservation
+     * En cas d'erreur on affiche la raison en rouge et reload l'affichage
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
@@ -79,19 +105,16 @@ public class ReservationUpdateServlet extends HttpServlet {
             response.sendRedirect("/rentmanager/rents");
         }catch (ServiceException e){
             try {
-                List<Vehicle> LV1 = new ArrayList<>();
-                List<Client> LC1 = new ArrayList<>();
-
                 long id = Long.parseLong(request.getParameter("id"));
 
                 Reservation R1 = reservationService.findResaById(id);
                 Vehicle V1 = vehicleService.findById(R1.getVehicle_id());
                 Client C1 = clientService.findById(R1.getClient_id());
 
-                LV1 = vehicleService.findAll();
-                LC1 = clientService.findAll();
-                LV1.remove(Integer.parseInt(String.valueOf(V1.getId()-1)));
-                LC1.remove(Integer.parseInt(String.valueOf(C1.getId()-1)));
+                List<Vehicle> LV1 = vehicleService.findAll();
+                List<Client> LC1 = clientService.findAll();
+                LV1.remove(V1.getId()-1);
+                LC1.remove(C1.getId()-1);
 
                 request.setAttribute("car",V1);
                 request.setAttribute("client",C1);

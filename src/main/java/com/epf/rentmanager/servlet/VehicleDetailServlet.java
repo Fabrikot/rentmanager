@@ -37,9 +37,22 @@ public class VehicleDetailServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
+
+    /**
+     * Permet d'afficher les détails d'un véhicule avec les réservations associées
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             List<Reservation_avec_nom_prenom_constr_modele> megaList = new ArrayList<>();
 
@@ -59,7 +72,7 @@ public class VehicleDetailServlet extends HttpServlet {
             request.setAttribute("car",V1);
             request.setAttribute("rentsmax",megaList);
         }catch (ServiceException e){
-            throw new ServletException();
+            throw new ServletException(e.getMessage());
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/details.jsp").forward(request, response);
     }

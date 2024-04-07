@@ -31,9 +31,21 @@ public class ClientDeleteServlet extends HttpServlet {
     }
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Permet de gérer la suppression d'un client
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             long id = Long.parseLong(request.getParameter("id"));
             long l = clientService.delete(new Client(id, "", "","", LocalDate.now()));

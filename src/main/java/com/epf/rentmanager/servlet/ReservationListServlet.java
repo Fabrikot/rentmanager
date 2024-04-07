@@ -39,6 +39,19 @@ public class ReservationListServlet extends HttpServlet {
     }
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Permet d'afficher la liste des réservations avec le nom/prénom du client et le modèle/constructeur de la voiture
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -57,9 +70,9 @@ public class ReservationListServlet extends HttpServlet {
                 }
             });
             request.setAttribute("rentsmax",megaList);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
         }catch (ServiceException e){
-            throw new ServletException();
+            throw new ServletException(e.getMessage());
         }
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
     }
 }

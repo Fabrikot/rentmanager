@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.FillDatabase;
 import com.epf.rentmanager.service.ClientService;
 import org.h2.tools.DeleteDbFiles;
@@ -69,5 +70,12 @@ public class ClientServiceTest {
 
         when(clientDao.findAll()).thenReturn(clients);
         assertThrows(ServiceException.class, () -> clientService.create(new Client(99, "Testos", "Terone", "ben.afleck@email.com", LocalDate.now().minusYears(20))));
+    }
+    @Test
+    void create_should_suceed_when_tout_ok() throws ServiceException {
+        long l_predit =0;
+        long l_créé;
+        l_créé =clientService.create(new Client(99, "Testos", "Terone", "ben.afleck@email.com", LocalDate.now().minusYears(20)));
+        assertEquals(l_predit,l_créé);
     }
 }

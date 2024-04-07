@@ -91,4 +91,11 @@ public class ReservationServiceTest {
         l_créé = reservationService.create(new Reservation(99, 1, 2, LocalDate.now(), LocalDate.now().plusDays(7)));
         assertEquals(l_predit,l_créé);
     }
+    @Test
+    void create_should_suceed_when_tout_ok() throws ServiceException {
+        long lpredit=0;
+        long l_créé;
+        l_créé=reservationService.create(new Reservation(99, 1, 2, LocalDate.now(), LocalDate.now().plusDays(7)));
+        assertEquals(lpredit,l_créé);
+    }
 }

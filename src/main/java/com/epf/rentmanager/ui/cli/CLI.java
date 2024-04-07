@@ -12,7 +12,11 @@ import java.util.List;
 import java.time.LocalDate;
 
 public class CLI {
-
+    /**
+     * Legacy : interface en ligne de commande
+     * @param args
+     * @throws CLIException
+     */
     public static void main(String[] args) throws CLIException {
         //ClientService instance=ClientService.getInstance();
         print("Bienvenue dans l'interface CLI :");

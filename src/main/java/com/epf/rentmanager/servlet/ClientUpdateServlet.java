@@ -26,6 +26,19 @@ public class ClientUpdateServlet extends HttpServlet {
     }
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Charge les informations du client à update sur la page de modification
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
@@ -37,6 +50,21 @@ public class ClientUpdateServlet extends HttpServlet {
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/update.jsp").forward(request, response);
     }
+
+    /**
+     * Permet de gérer la modification d'un client (on ne permet pas de modifier la date de naissance)
+     * En cas  d'erreur on affiche en rouge la raison sur la jsp
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
@@ -49,7 +77,15 @@ public class ClientUpdateServlet extends HttpServlet {
             long l = clientService.update(C1);
             response.sendRedirect("/rentmanager/users");
         }catch (ServiceException e){
-            throw new ServletException();
+            try {
+                long id = Long.parseLong(request.getParameter("id"));
+                Client C1 = clientService.findById(id);
+                request.setAttribute("client",C1);
+                request.setAttribute("exception",e.getMessage());
+                this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/update.jsp").forward(request, response);
+            } catch (ServiceException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

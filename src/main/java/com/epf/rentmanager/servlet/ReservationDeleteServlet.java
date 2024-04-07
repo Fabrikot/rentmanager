@@ -36,25 +36,24 @@ public class ReservationDeleteServlet extends HttpServlet {
     }
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Permet de gérer la suppression d'une réservation
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
             long id = Long.parseLong(request.getParameter("id"));
             long l = reservationService.delete(new Reservation(id,1,1, LocalDate.now(),LocalDate.now()));
-            response.sendRedirect("/rentmanager/rents");
-        }catch (ServiceException e){
-            throw new ServletException();
-        }
-    }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try{
-            long vehicleid = Long.parseLong(request.getParameter("car"));
-            long clientid = Long.parseLong(request.getParameter("client"));
-            LocalDate debut = LocalDate.parse(request.getParameter("begin"));
-            LocalDate fin = LocalDate.parse(request.getParameter("end"));
-            Reservation V1 = new Reservation(1,clientid, vehicleid, debut, fin);
-            long l = reservationService.create(V1);
             response.sendRedirect("/rentmanager/rents");
         }catch (ServiceException e){
             throw new ServletException();

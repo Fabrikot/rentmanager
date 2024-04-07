@@ -39,6 +39,19 @@ public class ClientDetailServlet extends HttpServlet {
     }
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Charge les réservations pour ce client, et les voitures réservées avec leur nombre de réservations respectives
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -66,7 +79,6 @@ public class ClientDetailServlet extends HttpServlet {
                         voiture.setConstructeur(String.valueOf(nb_resa_car));
                         LV1.add(voiture);
                     }
-
                 } catch (ServiceException e) {
                     throw new RuntimeException(e);
                 }
@@ -81,5 +93,4 @@ public class ClientDetailServlet extends HttpServlet {
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
     }
-
 }

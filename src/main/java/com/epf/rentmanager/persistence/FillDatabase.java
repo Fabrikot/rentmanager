@@ -61,10 +61,8 @@ public class FillDatabase {
             stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(3, 4, '2023-05-24', '2023-05-26')");
             stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(2, 3, '2023-10-05', '2023-10-10')");
             stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(4, 1, '2023-11-09', '2023-11-13')");
-
-
-
-
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(5, 3, '2024-04-09', '2023-04-15')");
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(1, 1, '2024-04-12', '2023-04-17')");
 
             connection.commit();
             System.out.println("Success!");

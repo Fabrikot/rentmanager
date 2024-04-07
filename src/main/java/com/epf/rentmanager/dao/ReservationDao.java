@@ -25,6 +25,12 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private  static final String COUNT_RESERVATIONS_QUERY = "SELECT COUNT(*) FROM Reservation";
 
+	/**
+	 * Crée la réservation
+	 * @param reservation
+	 * @return
+	 * @throws DaoException
+	 */
 	public long create(Reservation reservation) throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -43,10 +49,17 @@ public class ReservationDao {
 				return reservation.getId();
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Erreur création DAO");
+			throw new DaoException("Erreur créer reservation"+e.getSQLState());
 		}
 		return 0;
 	}
+
+	/**
+	 * Met à jour la réservation
+	 * @param reservation
+	 * @return
+	 * @throws DaoException
+	 */
 	public long update(Reservation reservation) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -66,10 +79,17 @@ public class ReservationDao {
 				return reservation.getId();
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur update reservation"+e.getSQLState());
 		}
 		return 0;
 	}
+
+	/**
+	 * Supprime la réservation
+	 * @param reservation
+	 * @return
+	 * @throws DaoException
+	 */
 	public long delete(Reservation reservation) throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -84,10 +104,17 @@ public class ReservationDao {
 				return resultSet.getLong(1);
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur supprimer reservations"+e.getSQLState());
 		}
 		return 0;
 	}
+
+	/**
+	 * Trouve la réservation grâce à son id
+	 * @param id
+	 * @return
+	 * @throws DaoException
+	 */
 	public Reservation findResaById(long id) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -99,10 +126,17 @@ public class ReservationDao {
 				return new Reservation(id,resultSet.getLong(1),resultSet.getLong(2),resultSet.getDate(3).toLocalDate(),resultSet.getDate(4).toLocalDate());
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver reservation"+e.getSQLState());
 		}
 		return null;
 	}
+
+	/**
+	 * Trouve la réservation grâce à l'id du client
+	 * @param clientId
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Reservation> findResaByClientId(long clientId) throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -116,10 +150,16 @@ public class ReservationDao {
 			}
 			return L1;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver reservations"+e.getSQLState());
 		}
 	}
-	
+
+	/**
+	 * Trouve la réservation grâce à l'id du véhicule
+	 * @param vehicleId
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Reservation> findResaByVehicleId(long vehicleId) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -133,9 +173,15 @@ public class ReservationDao {
 			}
 			return L1;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver reservations"+e.getSQLState());
 		}
 	}
+
+	/**
+	 * Compte le nombre de réservations
+	 * @return
+	 * @throws DaoException
+	 */
 	public int countAll() throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -149,10 +195,15 @@ public class ReservationDao {
 			}
 			return 0;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur compter reservations"+e.getSQLState());
 		}
 	}
 
+	/**
+	 *
+	 * @return La liste de toutes les réservations
+	 * @throws DaoException
+	 */
 	public List<Reservation> findAll() throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -169,7 +220,7 @@ public class ReservationDao {
 			}
 			return L1;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver reservations"+e.getSQLState());
 		}
 	}
 }

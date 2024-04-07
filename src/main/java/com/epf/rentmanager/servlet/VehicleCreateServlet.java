@@ -30,9 +30,23 @@ public class VehicleCreateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
     }
+
+    /**
+     * Permet la gestion de la création d'un véhicule
+     * En cas d'erreur, on affiche le message en rouge sur la jsp au moment de reload
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
@@ -43,7 +57,8 @@ public class VehicleCreateServlet extends HttpServlet {
             long l = vehicleService.create(V1);
             response.sendRedirect("/rentmanager/cars");
         }catch (ServiceException e){
-            throw new ServletException();
+            request.setAttribute("exception",e.getMessage());
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
         }
     }
 }

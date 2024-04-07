@@ -20,6 +20,12 @@ public class VehicleDao {
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
 	private  static final String COUNT_VEHICLES_QUERY = "SELECT COUNT(*) FROM Vehicle";
 
+	/**
+	 * Crée le véhicule
+	 * @param vehicle
+	 * @return
+	 * @throws DaoException
+	 */
 	public long create(Vehicle vehicle) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -38,10 +44,17 @@ public class VehicleDao {
 				return vehicle.getId();
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur créer vehicule"+e.getMessage());
 		}
 		return 0;
 	}
+
+	/**
+	 * Met à jour le véhicule
+	 * @param vehicle
+	 * @return
+	 * @throws DaoException
+	 */
 	public long update(Vehicle vehicle) throws  DaoException{
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -61,11 +74,17 @@ public class VehicleDao {
 				return vehicle.getId();
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur update vehicule"+e.getMessage());
 		}
 		return 0;
 	}
 
+	/**
+	 * Supprime le véhicule
+	 * @param vehicle
+	 * @return
+	 * @throws DaoException
+	 */
 	public long delete(Vehicle vehicle) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -80,11 +99,17 @@ public class VehicleDao {
 				return resultSet.getLong(1);
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur supprimer vehicule"+e.getMessage());
 		}
 		return 0;
 	}
 
+	/**
+	 * Trouve le véhicule avec son id
+	 * @param id
+	 * @return
+	 * @throws DaoException
+	 */
 	public Vehicle findById(long id) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -96,10 +121,16 @@ public class VehicleDao {
 				return new Vehicle(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getInt(4));
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver vehicule"+e.getMessage());
 		}
 		return null;
 	}
+
+	/**
+	 * Compte le nombre de véhicules
+	 * @return
+	 * @throws DaoException
+	 */
 	public int countAll() throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -113,10 +144,15 @@ public class VehicleDao {
 			}
 			return 0;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur compter vehicules"+e.getMessage());
 		}
 	}
 
+	/**
+	 *
+	 * @return La liste de tous les véhicules
+	 * @throws DaoException
+	 */
 	public List<Vehicle> findAll() throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -132,7 +168,7 @@ public class VehicleDao {
 			}
 			return L1;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver vehicules"+e.getMessage());
 		}
 	}
 

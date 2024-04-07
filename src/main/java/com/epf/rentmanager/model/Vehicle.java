@@ -1,9 +1,14 @@
 package com.epf.rentmanager.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Vehicle {
     private long id;
+    @NotNull
     private String constructeur;
+    @NotNull
     private String modele;
+    @NotNull
     private int nb_places;
     public Vehicle(){
         id=1;

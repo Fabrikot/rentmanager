@@ -25,6 +25,12 @@ public class ClientDao {
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	private  static final String COUNT_CLIENTS_QUERY = "SELECT COUNT(*) FROM Client";
 
+	/**
+	 *
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long create(Client client) throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -48,6 +54,13 @@ public class ClientDao {
 		}
 		return 0;
 	}
+
+	/**
+	 *
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long update(Client client) throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -67,10 +80,16 @@ public class ClientDao {
 				return client.getId();
 			}
 		} catch (SQLException e) {
-			throw new DaoException("PB de DAO"+e.getMessage());
+			throw new DaoException("Erreur création client"+e.getMessage());
 		}
 		return 0;
 	}
+
+	/**
+	 *
+	 * @return int
+	 * @throws DaoException
+	 */
 	public int countAll() throws DaoException {
 		try (
 				Connection connection = ConnectionManager.getConnection();
@@ -79,16 +98,21 @@ public class ClientDao {
 								,Statement.RETURN_GENERATED_KEYS);
 				ResultSet resultSet = ps.executeQuery();
 		){
-			while(resultSet.next()){
+			if(resultSet.next()){
 				return resultSet.getInt(1);
 			}
 			return 0;
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur update client"+e.getMessage());
 		}
 	}
 
-	
+	/**
+	 *
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long delete(Client client) throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -103,11 +127,17 @@ public class ClientDao {
 				return resultSet.getLong(1);
 			}
 		} catch (SQLException e) {
-			throw new DaoException("PB de DAO"+e.getMessage());
+			throw new DaoException("Erreur supprimer client"+e.getMessage());
 		}
 		return 0;
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @return
+	 * @throws DaoException
+	 */
 	public Client findById(long id) throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -121,11 +151,16 @@ public class ClientDao {
 				return new Client(id,resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getDate(4).toLocalDate());
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException("Erreur trouver client"+e.getMessage());
 		}
 		return new Client();
 	}
 
+	/**
+	 *
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Client> findAll() throws DaoException {
 		try (
 			Connection connection = ConnectionManager.getConnection();
@@ -141,7 +176,7 @@ public class ClientDao {
 			}
 			return L1;
 		} catch (SQLException e) {
-			throw new DaoException(e.getMessage());
+			throw new DaoException("Erreur trouver clients"+e.getMessage());
 		}
 	}
 }

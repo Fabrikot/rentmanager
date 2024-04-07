@@ -108,6 +108,12 @@ public class IOUtils {
 		return output;
 	}
 
+	/**
+	 * Permet de vérifier si une nouvelle réservation est possible par rapport à la list des réservations existantes
+	 * @param reservations
+	 * @param new_reservation
+	 * @return vrai si il n'y a pas de réservations consécutives pdt 30j, faux sinon
+	 */
 	public static boolean estReservePdt30j(List<Reservation> reservations,Reservation new_reservation) {
 		reservations.sort(Comparator.comparing(Reservation::getDebut));
 		reservations.add(new_reservation);

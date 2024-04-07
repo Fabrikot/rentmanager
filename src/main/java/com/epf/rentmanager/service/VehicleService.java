@@ -21,32 +21,43 @@ public class VehicleService {
 		this.vehicleDao = vehicleDao;
 		this.reservationDao = reservationDao;
 	}
-	
+
+	/**
+	 * Vérifie si le véhicule est conforme pour être créé
+	 * @param vehicle
+	 * @return long de l'id créé
+	 * @throws ServiceException
+	 */
 	public long create(Vehicle vehicle) throws ServiceException {
 		int nb_places=vehicle.getNb_places();
 		if ((vehicle.getConstructeur().isEmpty())||(vehicle.getModele().isEmpty())){
 			throw new ServiceException("La vehicule doit avoir un constructeur et un modèle");
 		}else if(nb_places<=1||nb_places>9){
-			throw new ServiceException("La nombre de places est incorrect");
+			throw new ServiceException("La nombre de places doit être compris entre 1 et 9");
 		}
 		try{
 			return vehicleDao.create(vehicle);
 		}catch(DaoException e){
-			throw new ServiceException("Erreur création vehicule");
+			throw new ServiceException(e.getMessage());
 		}
 	}
-
+	/**
+	 * Vérifie si le véhicule est conforme pour être update
+	 * @param vehicle
+	 * @return long de l'id créé
+	 * @throws ServiceException
+	 */
 	public long update(Vehicle vehicle) throws ServiceException {
 		int nb_places=vehicle.getNb_places();
 		if ((vehicle.getConstructeur().isEmpty())||(vehicle.getModele().isEmpty())){
 			throw new ServiceException("La vehicule doit avoir un constructeur et un modèle");
 		}else if(nb_places<=1||nb_places>9){
-			throw new ServiceException("La nombre de places est incorrect");
+			throw new ServiceException("La nombre de places doit être compris entre 1 et 9");
 		}
 		try{
 			return vehicleDao.update(vehicle);
 		}catch(DaoException e){
-			throw new ServiceException("Erreur création vehicule");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -57,10 +68,16 @@ public class VehicleService {
 		try{
 			return vehicleDao.findById(id);
 		}catch(DaoException e){
-			throw new ServiceException("Erreur trouver vehicle");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
+	/**
+	 * Delete les réservations pour ce véhicule ainsi que le véhicule
+	 * @param vehicle
+	 * @return
+	 * @throws ServiceException
+	 */
 	public long delete(Vehicle vehicle) throws ServiceException {
 		try{
 			List<Reservation> LR1 = reservationDao.findResaByVehicleId(vehicle.getId());
@@ -69,14 +86,14 @@ public class VehicleService {
             }
             return vehicleDao.delete(vehicle);
 		}catch(DaoException e){
-			throw new ServiceException("Erreur trouver véhicules");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 	public int count() throws ServiceException {
 		try{
 			return vehicleDao.countAll();
 		}catch(DaoException e){
-			throw new ServiceException("Erreur trouver véhicules");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -84,7 +101,7 @@ public class VehicleService {
 		try{
 			return vehicleDao.findAll();
 		}catch(DaoException e){
-			throw new ServiceException("Erreur trouver véhicules");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 }

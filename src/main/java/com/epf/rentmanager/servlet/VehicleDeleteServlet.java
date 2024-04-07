@@ -34,9 +34,21 @@ public class VehicleDeleteServlet extends HttpServlet {
     }
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Permet la suppression d'un véhicule
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             Long id = Long.parseLong(request.getParameter("id"));
             long l = vehicleService.delete(new Vehicle(id, "", "",0));
@@ -44,5 +56,5 @@ public class VehicleDeleteServlet extends HttpServlet {
         }catch (ServiceException e){
             throw new ServletException();
         }
-        }
+    }
 }

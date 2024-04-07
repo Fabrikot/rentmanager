@@ -32,15 +32,26 @@ public class VehicleListServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
+    /**
+     * Permet d'afficher la liste des véhicules existants
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            List<Vehicle> L1 = new ArrayList<>();
-            L1 = vehicleService.findAll();
+            List<Vehicle> L1 = vehicleService.findAll();
             request.setAttribute("vehicles",L1);
         }catch (ServiceException e){
-            throw new ServletException();
+            throw new ServletException(e.getMessage());
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
     }

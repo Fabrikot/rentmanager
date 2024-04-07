@@ -1,19 +1,20 @@
 package com.epf.rentmanager.model;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 public class Reservation {
     private long id;
+    @NotNull
     private long client_id;
+    @NotNull
     private long vehicle_id;
-    //private Client client;
     private LocalDate debut;
     private LocalDate fin;
     public Reservation(){
         id=1;
         client_id=1;
         vehicle_id=1;
-        //client=Client();
         debut=LocalDate.now();
-        fin=LocalDate.of(2025,10,1);
+        fin=LocalDate.now().plusDays(5);
     }
 
     public Reservation(long id, long client_id, long vehicle_id, LocalDate debut, LocalDate fin) {

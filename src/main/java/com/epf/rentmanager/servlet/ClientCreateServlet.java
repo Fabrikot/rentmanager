@@ -26,9 +26,23 @@ public class ClientCreateServlet extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
     }
+
+    /**
+     * Permet de gérer la création d'un nouveau client
+     * En cas  d'erreur on affiche en rouge la raison sur la jsp
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
@@ -40,7 +54,8 @@ public class ClientCreateServlet extends HttpServlet {
             long l = clientService.create(C1);
             response.sendRedirect("/rentmanager/users");
         }catch (ServiceException e){
-            throw new ServletException(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
         }
     }
 }
